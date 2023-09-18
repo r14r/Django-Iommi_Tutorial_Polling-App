@@ -30,7 +30,7 @@ class IndexView(generic.ListView):
     template_name = 'polls/index.html'
     context_object_name = 'latest_question_list'
 
-    LOGGER.debug('IndexView |')
+    # LOGGER.debug('IndexView |')
 
     def get_queryset(self):
         """
@@ -44,7 +44,7 @@ class DetailView(generic.DetailView):
     """DetailView"""
 
     data = {}
-    LOGGER.debug('DetailView | data=' + str(data))
+    # LOGGER.debug('DetailView | data=' + str(data))
 
     model = Question
     template_name = 'polls/detail.html'
@@ -56,7 +56,7 @@ class ResultsView(generic.DetailView):
     """
     
     data = {}
-    LOGGER.debug('ResultsView | data=' + str(data))
+    # LOGGER.debug('ResultsView | data=' + str(data))
 
     model = Question
     template_name = 'polls/results.html'
@@ -68,7 +68,7 @@ class ResultsOverviewView(generic.ListView):
     template_name = 'polls/results-overview.html'
     context_object_name = 'latest_question_list'
 
-    LOGGER.debug('ResultsOverviewView |')
+    # LOGGER.debug('ResultsOverviewView |')
 
     def get_queryset(self):
         """
@@ -85,7 +85,7 @@ class HelpView(generic.ListView):
     template_name = 'polls/help.html'
     context_object_name = 'latest_question_list'
 
-    LOGGER.debug('IndexView |')
+    # LOGGER.debug('HelpView |')
 
     def get_queryset(self):
         """
@@ -97,7 +97,7 @@ class HelpView(generic.ListView):
 def index(request):
     """
     """
-    LOGGER.debug('index | ')
+    # LOGGER.debug('index | ')
 
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}
@@ -114,7 +114,7 @@ def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     data = {'question': question}
 
-    LOGGER.debug('detail | data=' + str(data))
+    # LOGGER.debug('detail | data=' + str(data))
     return render(request, 'polls/detail.html', data)
 
 
@@ -125,7 +125,7 @@ def results(request):
 
     data = { mode: 'full'}
 
-    LOGGER.debug('results | data=' + str(data))
+    # LOGGER.debug('results | data=' + str(data))
     return render(request, 'polls/results.html', data)
 
 
@@ -136,11 +136,11 @@ def vote(request, question_id):
 
     question = get_object_or_404(Question, pk=question_id)
 
-    LOGGER.debug('vote | question = ' + str(question))
+    # LOGGER.debug('vote | question = ' + str(question))
 
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
-        LOGGER.debug('vote | selected_choice = ' + str(selected_choice))
+        ('vote | selected_choice = ' + str(selected_choice))
 
     except (KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', {
@@ -151,7 +151,7 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         
-        LOGGER.debug('vote | goto results votes=' + str(selected_choice.votes) +', question.id=' + str(question.id))
+        # LOGGER.debug('vote | goto results votes=' + str(selected_choice.votes) +', question.id=' + str(question.id))
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
 
 
@@ -159,7 +159,7 @@ def vote(request, question_id):
 def help(request):
     """
     """
-    LOGGER.debug('help | ')
+    # LOGGER.debug('help | ')
 
     latest_question_list = Question.objects.order_by('-pub_date')[:5]
     context = {'latest_question_list': latest_question_list}

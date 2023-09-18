@@ -6,10 +6,10 @@ default:
 	grep -E ':\s+#' Makefile
 
 clearcache:	# Clear Cache
-	python3 manage.py clearcache
+	python manage.py clearcache
 
 run:		# Run Server
-	python3 manage.py runserver 8000
+	python manage.py runserver 9999
 
 makemigrations:
 	python manage.py makemigrations
@@ -17,7 +17,7 @@ makemigrations:
 migrate:
 	python manage.py migrate
 
-createsuperuser:
+superuser:
 	python manage.py createsuperuser --email admin@via-internet.de --username admin
 
 deploy:		# Deploy
